@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import loginStyle from "../../styles/pages/login.module.scss";
 import { FiUser } from "react-icons/fi";
 import { CgLock } from "react-icons/cg";
@@ -47,7 +48,10 @@ function LoginComponents() {
 					</div>
 
 					<p className={loginStyle.dontHaveAccount}>
-						Don’t have an account ? <a>Sign Up</a>
+						Don’t have an account ?
+						<Link href="/register" passHref>
+							<a>Sign Up</a>
+						</Link>
 					</p>
 				</form>
 			</div>
