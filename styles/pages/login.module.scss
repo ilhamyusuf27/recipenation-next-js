@@ -1,5 +1,18 @@
 @import '../colors.module.scss';
 
+
+.loginContainer{
+    @media only screen and (min-width: 450px) {
+        display:flex;
+        justify-content: center;
+        width: 100%;
+
+        .loginContain{
+            width: 450px;
+        }
+    }
+}
+
 .login {
 
     display: flex;
