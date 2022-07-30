@@ -1,3 +1,5 @@
+@import "./colors.module.scss";
+
 .container {
   padding: 0 2rem;
 }
@@ -29,7 +31,7 @@
 }
 
 .title a {
-  color: #0070f3;
+  color: $primary-color;
   text-decoration: none;
 }
 
