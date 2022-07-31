@@ -24,3 +24,39 @@ a {
     background: black;
   }
 }
+
+.slick-slider {
+  position: absolute;
+  width: 100vw;
+
+  // when you set this, the arrows and dots will be hidden, so you have to handle it via css
+  overflow: hidden;
+
+  .slick-track {
+  // removes default auto margin
+    margin: inherit;
+  }
+
+  .slick-list {
+    padding-left: 1rem;
+  }
+  
+  .slick-slide div{
+    margin-right: .25rem;
+    background-color: black;
+    color: white;
+    height: 180px;
+    border-radius: 15px;
+    margin-right: 1rem;
+    display: flex;
+    align-items:center;
+    padding: .5rem;
+    align-items: flex-end;
+  }
+
+}
+
+.item {
+margin-right: 20px;
+padding: 1rem;
+}
