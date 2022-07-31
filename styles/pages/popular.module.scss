@@ -1,1 +1,75 @@
 @import '../colors.module.scss';
+
+.titlePage{
+
+    position: fixed;
+    padding: 1.5rem;
+    background-color: $bg-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+
+    .back {
+        width: 48px;
+        height: 48px;
+        background-color: $bg-back-color;
+        border-radius: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left:1rem;
+    }
+
+    h3{
+        color: $primary-color;
+    }
+
+    
+}
+
+
+.contentContainer{
+    padding-top: 5.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    .imageContent{
+        width: 80px;
+        height: 80px;
+        background-color: black;
+        border-radius: 1rem;
+    }
+
+    .contentText{
+        h4{
+            margin: 0;
+        }
+
+        p{
+            margin-bottom: .5rem;
+        }
+
+        h5{
+            margin: 0;
+        }
+    }
+}
+
+.buttonControl{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+    
+    button{
+        background-color: $primary-color;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border: none;
+    }
+}
+
+
