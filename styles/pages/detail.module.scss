@@ -1,0 +1,71 @@
+@import '../colors.module.scss';
+
+.detailContent{
+    position: relative;
+
+    .iconBack{
+        position: absolute;
+        margin: 1.5rem;
+        z-index: 1;
+    }
+    .imageContent{
+        height: 50vh;
+        width: 100vw;
+        background-color: black;
+        color: $bg-color;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 3rem;
+        padding-left: 2.5rem;
+        padding-right: 1.5rem;
+        
+    
+    
+        .buttonControl{
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: flex-end;
+            
+            button{
+                background-color: $primary-color;
+                width: 36px;
+                height: 36px;
+                padding: 0;
+                border: none;
+                margin-left: 1rem;
+                border-radius: 1rem;
+            }
+        }
+    }
+
+    .content{
+        position: absolute;
+        top: 95%;
+        width: 100vw;
+        height: 1000px;
+        background-color: $bg-color;
+        border-radius: 1.5rem 1.5rem 0 0;
+        padding: 1.5rem;
+
+        .playContainer{
+            background-color: #FAF7ED;
+            padding: 12px;
+            border-radius: 1rem;
+
+
+            .buttonPlay{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 60px;
+                height: 60px;
+                background-color: $primary-color;
+                border-radius: 1rem;
+            }
+        }
+
+    }
+}
+
+

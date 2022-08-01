@@ -1,3 +1,5 @@
+@import './colors.module.scss';
+
 html,
 body {
   padding: 0;
@@ -60,3 +62,17 @@ a {
 margin-right: 20px;
 padding: 1rem;
 }
+
+.nav-pills {
+  color: #18172B;
+
+
+  .nav-link.active{
+    color: black !important;
+    background-color: $bg-color !important;
+    border-radius: 0;
+    border-bottom: 2px solid $primary-color;
+  }
+}
+
+
