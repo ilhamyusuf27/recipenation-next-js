@@ -1,0 +1,23 @@
+// scss
+.slick-slider {
+    // when you set this, the arrows and dots will be hidden, so you have to handle it via css
+    overflow: hidden;
+ 
+    .slick-track {
+    // removes default auto margin
+      margin: inherit;
+    }
+ 
+    .slick-list {
+     // adjust the card-margin 
+      width: calc(100% + 20px);
+    }
+
+    .slick-slide{
+        margin-right: 1rem;
+    }
+ }
+ 
+ .item {
+  margin-right: 20px;
+ }

@@ -1,0 +1,119 @@
+@import '../colors.module.scss';
+
+
+.RegisterContainer{
+    background-color: $bg-secondary-color;
+    overflow-y:hidden;
+
+    .RegisterContain{
+        position: relative;
+    }
+    @media only screen and (min-width: 450px) {
+        display:flex;
+        justify-content: center;
+        width: 100%;
+
+        .RegisterContain{
+            width: 450px;
+        }
+    }
+}
+
+.back{
+    width: 100%;
+    padding: 1.5rem;
+    
+}
+
+.register {
+
+    display: flex;
+    align-items: center;
+    margin-top: 5rem;
+    flex-direction: column;
+    
+    height: 100vh;
+
+    .linkForgot{
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 1rem;
+    }
+
+    div h4 {
+        color: $primary-color;
+    }
+
+    div p {
+        color: $input-text-color;
+    }
+
+    div button {
+        background-color: $primary-color;
+        border: none;
+    }
+
+    div button:hover {
+        background-color: $bg-color;
+        border: 1px solid $primary-color;
+        color: $primary-color;
+    }
+
+    .formStyle {
+        width: 100%;
+        padding: 0 10%;
+    }
+
+    .dontHaveAccount{
+        margin-top: 1.5rem;
+        color: $ternary-text-color !important;
+        text-align: center;
+    }
+
+    .dontHaveAccount a{
+    color: $primary-color !important;
+    }
+
+    .wrapper{
+        position: relative;
+
+        .iconUser{
+            position: absolute;
+            top:30%;
+            left:20px;
+        }
+        .iconUser2{
+            position: absolute;
+            top:25%;
+            left:20px;
+        }
+
+        input{
+            padding-left: 50px;
+        }
+
+        input:focus{
+            box-shadow: 0 0 0 0.25rem rgba($color: $primary-color, $alpha: 0.4);
+            padding-left: 50px;
+            border: none;
+        }
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .inputImage[type='file']{
+        display: none;
+    }
+
+    label{
+        background-color: $bg-color;
+        width: 100%;
+        padding: 8px 1rem 8px 50px;
+        font-size: 1.25rem;
+        border-radius: .5rem;
+        border: 1px solid #ced4da;
+        overflow: hidden;
+    }
+}

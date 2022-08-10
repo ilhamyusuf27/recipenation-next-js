@@ -1,0 +1,48 @@
+@import '../colors.module.scss';
+
+.titlePage{
+
+    position: fixed;
+    padding: 1.5rem;
+    background-color: $bg-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 414px;
+
+    .back {
+        width: 48px;
+        height: 48px;
+        background-color: $bg-back-color;
+        border-radius: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left:1rem;
+        cursor: pointer;
+    }
+
+    h3{
+        color: $primary-color;
+    }
+
+    
+}
+
+.editMenu{
+    padding-top: 5.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    .menuContainer{
+        width: 100%;
+        border-bottom: 1px solid $ternary-text-color;
+        padding: .75rem 0;
+        cursor: pointer;
+    }
+
+    .menuContainer:hover{
+        background-color: $bg-secondary-color;
+    }
+}

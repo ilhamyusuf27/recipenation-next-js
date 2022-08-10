@@ -1,0 +1,97 @@
+@import './colors.module.scss';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+}
+
+.slick-slider {
+  position: absolute;
+  width: 100vw;
+
+  // when you set this, the arrows and dots will be hidden, so you have to handle it via css
+  overflow: hidden;
+
+  .slick-track {
+  // removes default auto margin
+    margin: inherit;
+  }
+
+  .slick-list {
+    padding-left: 1rem;
+    height: 200px;
+  }
+  
+  .slick-slide div{
+    margin-right: .25rem;
+    background-color: black;
+    color: white;
+    // height: 180px;
+    border-radius: 15px;
+    margin-right: 1rem;
+    display: flex;
+    align-items:center;
+    // padding: .5rem;
+    -webkit-box-shadow: 0px 10px 15px -11px rgba(0,0,0,0.17); 
+box-shadow: 0px 10px 15px -11px rgba(0,0,0,0.17);
+    align-items: flex-end;
+  }
+
+  @media only screen and (min-width: 450px) {
+    .slick-slide {
+      width: 11% !important;
+    }
+  }
+  @media only screen and (min-width: 769px) {
+    .slick-slide {
+      width: 10% !important;
+    }
+  }
+  @media only screen and (min-width: 1440px) {
+    .slick-slide {
+      width: 8% !important;
+    }
+  }
+
+}
+
+.item {
+margin-right: 20px;
+padding: 1rem;
+}
+
+.nav-pills {
+  color: #18172B;
+
+
+  .nav-link.active{
+    color: black !important;
+    background-color: $bg-color !important;
+    border-radius: 0;
+    border-bottom: 2px solid $primary-color;
+  }
+}
+
+

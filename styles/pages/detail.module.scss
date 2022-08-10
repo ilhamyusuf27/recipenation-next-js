@@ -1,0 +1,99 @@
+@import '../colors.module.scss';
+
+.detailContent{
+    position: relative;
+
+    .iconBack{
+        position: absolute;
+        margin: 1.5rem;
+        z-index: 1;
+        background-color: black;
+        cursor: pointer;
+    }
+    .imageContent{
+        height: 50vh;
+        width: 100%;
+        background-color: black;
+        color: $bg-color;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 3rem;
+        padding-left: 2.5rem;
+        padding-right: 1.5rem;
+        background-size: cover;
+        background-position: center;
+    
+    
+        .buttonControl{
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: flex-end;
+            
+            button{
+                background-color: $primary-color;
+                width: 36px;
+                height: 36px;
+                padding: 0;
+                border: none;
+                margin-left: 1rem;
+                border-radius: 1rem;
+            }
+        }
+    }
+
+    .content{
+        position: absolute;
+        top: 425px;
+        width: 100%;
+        height: 100%;
+        background-color: $bg-color;
+        border-radius: 1.5rem 1.5rem 0 0;
+        padding: 1.5rem;
+
+        .playContainer{
+            background-color: #FAF7ED;
+            padding: 12px;
+            border-radius: 1rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+
+
+            .buttonPlay{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 60px;
+                height: 60px;
+                background-color: $primary-color;
+                border-radius: 1rem;
+            }
+        }
+
+    }
+
+    .commentContainer{
+        overflow: hidden;
+        word-wrap: break-word;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+
+        .avatar{
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            object-position: center;
+    
+            border-radius: 50%;
+        }
+
+        h6{
+            margin: 0;
+        }
+
+    }
+
+}
+
+
+
