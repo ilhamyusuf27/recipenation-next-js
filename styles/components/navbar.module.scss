@@ -1,5 +1,15 @@
 @import '../colors.module.scss';
+@media only screen and (min-width: 450px) {
+    .navbar {
+        background-color: $bg-color !important;
+        padding: 1rem !important;
+        width: 450px !important;
+        margin: 0 auto;
+    }
+}
 .navbar {
     background-color: $bg-color !important;
     padding: 1rem !important;
+    margin: 0 auto;
 }
+

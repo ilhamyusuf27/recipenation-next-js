@@ -1,0 +1,12 @@
+.responsiveContainer{
+    @media only screen and (min-width: 450px) {
+        display:flex;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+
+        .responsiveContain{
+            width: 450px;
+        }
+    }
+}

@@ -1,0 +1,48 @@
+@import '../colors.module.scss';
+
+.titlePage{
+
+    position: fixed;
+    padding: 1.5rem;
+    background-color: $bg-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .back {
+        width: 48px;
+        height: 48px;
+        background-color: $bg-back-color;
+        border-radius: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left:1rem;
+    }
+
+    h3{
+        color: $primary-color;
+    }
+
+    
+}
+
+.recipeContainer{
+    padding-top: 5.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    .recipe{
+        .image{
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            border-radius: 1rem;
+        }
+        .detail{
+            padding-left: 1rem;
+        }
+    }
+}

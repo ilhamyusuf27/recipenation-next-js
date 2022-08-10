@@ -41,19 +41,38 @@ a {
 
   .slick-list {
     padding-left: 1rem;
+    height: 200px;
   }
   
   .slick-slide div{
     margin-right: .25rem;
     background-color: black;
     color: white;
-    height: 180px;
+    // height: 180px;
     border-radius: 15px;
     margin-right: 1rem;
     display: flex;
     align-items:center;
-    padding: .5rem;
+    // padding: .5rem;
+    -webkit-box-shadow: 0px 10px 15px -11px rgba(0,0,0,0.17); 
+box-shadow: 0px 10px 15px -11px rgba(0,0,0,0.17);
     align-items: flex-end;
+  }
+
+  @media only screen and (min-width: 450px) {
+    .slick-slide {
+      width: 11% !important;
+    }
+  }
+  @media only screen and (min-width: 769px) {
+    .slick-slide {
+      width: 10% !important;
+    }
+  }
+  @media only screen and (min-width: 1440px) {
+    .slick-slide {
+      width: 8% !important;
+    }
   }
 
 }
