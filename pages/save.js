@@ -15,7 +15,7 @@ function MySave() {
 	const [data, setData] = React.useState({});
 
 	React.useEffect(() => {
-		axios.get(`http://localhost:3000/api/save/recipe/${profile.user_id}`).then((res) => {
+		axios.get(`${process.env.NEXT_URL}/api/save/recipe/${profile.user_id}`).then((res) => {
 			setData(res?.data?.result);
 		});
 	}, []);

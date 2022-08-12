@@ -16,7 +16,7 @@ function Myrecipe() {
 
 	React.useEffect(() => {
 		axios
-			.post(`http://localhost:3000/api/recipe/user`, {
+			.post(`${process.env.NEXT_URL}/api/recipe/user`, {
 				user_id: profile?.user_id,
 			})
 			.then((res) => {

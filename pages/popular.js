@@ -17,12 +17,11 @@ function Popular() {
 	const router = useRouter();
 	const { profile, token } = useSelector((state) => state?.auth);
 	const [save, setSave] = React.useState([]);
-	const [likedData, setLikedData] = React.useState({});
 	const [open, setOpen] = React.useState(false);
 	const [msg, setMessage] = React.useState("");
 
 	React.useEffect(() => {
-		fetch("http://localhost:3000/api/recipe/allrecipe")
+		fetch(`${process.env.NEXT_URL}/api/recipe/allrecipe`)
 			.then((res) => res.json())
 			.then((result) => {
 				console.log(result.result);
@@ -33,7 +32,7 @@ function Popular() {
 	const handleSave = (user_id, recipe_id) => {
 		axios
 			.patch(
-				"http://localhost:3000/api/save/save",
+				`${process.env.NEXT_URL}/api/save/save`,
 				{
 					user_id,
 					recipe_id,
@@ -54,7 +53,7 @@ function Popular() {
 	const handleUnSave = (user_id, recipe_id) => {
 		axios
 			.patch(
-				"http://localhost:3000/api/save/unsave",
+				`${process.env.NEXT_URL}/api/save/unsave`,
 				{
 					user_id,
 					recipe_id,
@@ -76,7 +75,7 @@ function Popular() {
 	const handleLike = (user_id, recipe_id) => {
 		axios
 			.patch(
-				"http://localhost:3000/api/like/like",
+				`${process.env.NEXT_URL}/api/like/like`,
 				{
 					user_id,
 					recipe_id,
@@ -97,7 +96,7 @@ function Popular() {
 	const handleUnLike = (user_id, recipe_id) => {
 		axios
 			.patch(
-				"http://localhost:3000/api/like/unlike",
+				`${process.env.NEXT_URL}/api/like/unlike`,
 				{
 					user_id,
 					recipe_id,

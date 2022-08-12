@@ -19,31 +19,6 @@ function Detail(props) {
 	const [isLoading, setIsLoading] = React.useState(false);
 	// let commentData = props?.comment?.result;
 	const [commentData, setCommentData] = React.useState(props?.comment?.result);
-	// console.log(commentData);
-
-	const handleComment = (e) => {
-		e.preventDefault();
-		setIsLoading(true);
-		fetch(`http://localhost:3000/api/comment/${props?.id}`, {
-			method: "POST",
-			headers: new Headers({
-				Authorization: `Bearer ${token}`,
-			}),
-			body: JSON.stringify({
-				comment,
-				user_id: profile?.user_id,
-			}),
-		})
-			.then((res) => res.json())
-			.then((result) => {
-				setIsLoading(false);
-				setCommentData(result?.result);
-			})
-			.catch((err) => {
-				console.log(err);
-				setIsLoading(false);
-			});
-	};
 	return (
 		<Responsive>
 			<MainLayout>
@@ -62,7 +37,7 @@ function Detail(props) {
 }
 
 export async function getStaticPaths() {
-	const request = await fetch("http://localhost:8000/recipes/all").then((res) => res.json());
+	const request = await fetch(`${process.env.API_URL}/recipes/all`).then((res) => res.json());
 
 	return {
 		paths: request?.result.map((item) => ({ params: { id: item?.recipe_id?.toString() } })),
@@ -73,8 +48,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
 	const { id } = context.params;
 
-	const data = await fetch(`http://localhost:8000/recipe/id/${id}`).then((res) => res.json());
-	// const comment = await fetch(`http://localhost:3000/api/comment/recipe/${id}`).then((res) => res.json());
+	const data = await fetch(`${process.env.API_URL}/recipe/id/${id}`).then((res) => res.json());
 
 	return { props: { data, id } };
 }

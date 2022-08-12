@@ -3,7 +3,11 @@ const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
 	images: {
-		domains: ["res.cloudinary.com", "localhost"],
+		domains: ["res.cloudinary.com", "localhost", "www.dirtyapronrecipes.com"],
+	},
+	env: {
+		API_URL: process.env.API_URL,
+		NEXT_URL: process.env.NEXT_URL,
 	},
 };
 

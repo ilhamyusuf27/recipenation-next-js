@@ -16,7 +16,6 @@ import Swal from "sweetalert2";
 function EditProfile() {
 	const router = useRouter();
 	const { profile, token } = useSelector((state) => state?.auth);
-	console.log("user", profile?.user_id);
 
 	const [name, setName] = React.useState("");
 	const [phone_number, setPhone] = React.useState("");
@@ -36,10 +35,10 @@ function EditProfile() {
 		formData.append("photo_profil", photo_profil);
 
 		axios
-			.patch("http://localhost:8000/users/update", formData, {
+			.put(`https://recipenation-app.herokuapp.com/users/update`, formData, {
 				headers: {
 					Authorization: `Bearer ${token}`,
-					"content-type": "multipart/form-data",
+					"Content-type": "multipart/form-data",
 				},
 			})
 			.then(() => {

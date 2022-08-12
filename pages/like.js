@@ -16,7 +16,7 @@ function MyLike() {
 	const [data, setData] = React.useState({});
 
 	React.useEffect(() => {
-		axios.get(`http://localhost:3000/api/like/recipe/${profile.user_id}`).then((res) => {
+		axios.get(`${process.env.NEXT_URL}/api/like/recipe/${profile.user_id}`).then((res) => {
 			setData(res?.data?.result);
 		});
 	}, []);
