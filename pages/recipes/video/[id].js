@@ -41,7 +41,7 @@ export async function getStaticPaths() {
 
 	return {
 		paths: request?.result.map((item) => ({ params: { id: item?.recipe_id?.toString() } })),
-		fallback: false,
+		fallback: "blocking",
 	};
 }
 

@@ -21,14 +21,22 @@ function Profile() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const [dataUser, setDataUser] = React.useState({});
+	const [isLoading, setIsLoading] = React.useState(false);
 
 	React.useEffect(() => {
 		if (!token) {
 			router.push("/login");
 		}
 
-		axios.get(`${process.env.NEXT_URL}/api/user/getuser/${profile?.user_id}`).then((res) => setDataUser(res?.data?.result[0]));
-	}, []);
+		setIsLoading(true);
+		axios
+			.get(`${process.env.NEXT_URL}/api/user/getuser/${profile?.user_id}`)
+			.then((res) => {
+				setIsLoading(false);
+				setDataUser(res?.data?.result[0]);
+			})
+			.catch(() => setIsLoading(false));
+	}, [profile?.user_id, router, token]);
 
 	const handleLogOut = () => {
 		dispatch({
@@ -44,9 +52,11 @@ function Profile() {
 				<div className={profileStyle.profileDesc}>
 					<div className="text-center">
 						{dataUser?.photo_profil ? (
-							<Image src={dataUser?.photo_profil ?? "/images/user.jpg"} alt="avatar" width={100} height={100} className={profileStyle.image} />
-						) : (
+							<Image src={dataUser?.photo_profil} alt="avatar" width={100} height={100} className={profileStyle.image} />
+						) : isLoading ? (
 							<Skeleton variant="circular" width={100} height={100} animation="wave" />
+						) : (
+							<Image src={"/images/user.jpg"} alt="avatar" width={100} height={100} className={profileStyle.image} />
 						)}
 						{dataUser?.name ? <h3 className="mt-2">{dataUser?.name}</h3> : <Skeleton variant="text" sx={{ fontSize: "1rem" }} animation="wave" />}
 					</div>

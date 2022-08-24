@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { useRouter } from "next/router";
 import Responsive from "../../layout/Responsive";
@@ -21,7 +22,7 @@ function Search(props) {
 	return (
 		<Responsive>
 			<MainLayout>
-				<div className={homeStyle.home}>
+				<div className={homeStyle.home} style={{ height: "100vh" }}>
 					<div className={`${homeStyle.search} mb-4`}>
 						<form onSubmit={handleSearch}>
 							<div className={homeStyle.wrapper}>

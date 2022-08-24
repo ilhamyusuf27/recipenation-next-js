@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -7,22 +8,31 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 
+import { FiUser } from "react-icons/fi";
 import { IoIosArrowBack } from "react-icons/io";
+import { IoBookmarkOutline } from "react-icons/io5";
+import { BiLike } from "react-icons/bi";
 
 function Myrecipe() {
 	const router = useRouter();
-	const { profile, token } = useSelector((state) => state?.auth);
-	const [data, setData] = React.useState({});
+	const { profile } = useSelector((state) => state?.auth);
+	const [data, setData] = React.useState([]);
+	const [isLoading, setIsLoading] = React.useState(false);
 
 	React.useEffect(() => {
+		setIsLoading(true);
 		axios
 			.post(`${process.env.NEXT_URL}/api/recipe/user`, {
 				user_id: profile?.user_id,
 			})
 			.then((res) => {
 				setData(res?.data?.result);
-			});
-	}, []);
+				setFound(false);
+			})
+			.catch(() => setIsLoading(false));
+	}, [profile?.user_id]);
+
+	console.log(data);
 
 	return (
 		<Responsive>
@@ -39,23 +49,39 @@ function Myrecipe() {
 				{data?.length ? (
 					<>
 						{data?.map((item) => (
-							<>
-								<div className={saveStyle.recipe}>
+							<div key={item?.recipe_id} className={`${saveStyle.recipe} mb-3`}>
+								<Link href={`/recipes/${item?.recipe_id}`}>
 									<div className="row">
 										<div className="col-3">
 											<div className={saveStyle.image} style={{ backgroundImage: `url(${item.recipe_images})` }} />
 										</div>
 										<div className="col-9">
-											<div className={saveStyle.detail}>
-												<h4>{item.title}</h4>
-												<p>in Veg Pizza</p>
-												<h5>Spicy</h5>
+											<div className={`${saveStyle.detail}`}>
+												<h4 className="m-0">{item.title}</h4>
+												<div className="d-flex align-items-center">
+													<FiUser />
+													<p className="ms-1 mb-0">{item?.author}</p>
+												</div>
+												<div className="row">
+													<div className="col-lg-2 col-3 d-flex align-items-center">
+														<IoBookmarkOutline /> {" " + item?.save.length}
+													</div>
+													<div className="col-lg-2 col-3 d-flex align-items-center">
+														<BiLike /> {" " + item?.likes.length}
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</>
+								</Link>
+							</div>
 						))}
+					</>
+				) : isLoading ? (
+					<>
+						<div className="d-flex align-items-center justify-content-center">
+							<img src="/animation/loading2.gif" alt="loading" />
+						</div>
 					</>
 				) : (
 					<h3 className="text-center text-muted">Belum ada recipe</h3>

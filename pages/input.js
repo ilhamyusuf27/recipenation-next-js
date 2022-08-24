@@ -60,7 +60,7 @@ function Input() {
 		formData.append("video_link", linkConvert);
 
 		axios
-			.post(`https://recipenation-app.herokuapp.com/users/update`, formData, {
+			.post(`https://recipenation-app.herokuapp.com/recipes/add`, formData, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 					"content-type": "multipart/form-data",
@@ -73,10 +73,14 @@ function Input() {
 					title: "Berhasil Ditambah",
 				}).then(() => router.push("/"));
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				setIsLoading(false);
+				Swal.fire({
+					icon: "error",
+					title: err.response.data,
+				});
+			});
 	};
-
-	console.log(linkVideo);
 	return (
 		<MainLayout>
 			<div className={addRecipeStyle.container}>

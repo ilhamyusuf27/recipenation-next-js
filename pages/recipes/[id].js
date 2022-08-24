@@ -26,6 +26,12 @@ function Detail(props) {
 	const [open, setOpen] = React.useState(false);
 	const [msg, setMessage] = React.useState("");
 
+	React.useEffect(() => {
+		if (!token) {
+			router.push("/login");
+		}
+	}, []);
+
 	// const handleSave = (user_id, recipe_id) => {
 	// 	axios
 	// 		.patch(
@@ -111,13 +117,12 @@ function Detail(props) {
 
 				{/* Image */}
 				<div className={detailStyle.imageContent} style={{ backgroundImage: `url(${recipe_images ?? "https://www.dirtyapronrecipes.com/wp-content/uploads/2015/10/food-placeholder.png"})` }}>
-					<div className="row w-100">
+					{/* <div className="row w-100">
 						<div className="col-8">
-							<h3>{dataSave?.title}</h3>
-							<p>By {dataSave?.author}</p>
-						</div>
+							
+						</div> */}
 
-						{/* Like and Save
+					{/* Like and Save
 						<div className="col-4 p-0">
 							{profile ? (
 								dataSave?.save?.includes(profile.user_id.toString()) ? (
@@ -141,82 +146,85 @@ function Detail(props) {
 							) : null}
 						</div>
 						</div> */}
-					</div>
+					{/* </div> */}
+				</div>
+
+				<div className={detailStyle.title}>
+					<h3>{dataSave?.title}</h3>
+					<p>By {dataSave?.author}</p>
 				</div>
 
 				{/* Content */}
 				<div className={detailStyle.content}>
 					<Tabs defaultActiveKey="ingredients" id="uncontrolled-tab-example" className="mb-3" variant="pills">
 						<Tab eventKey="ingredients" title="Ingredients">
-							{dataSave.ingredients}
+							<p style={{ whiteSpace: "pre-line" }}>{dataSave.ingredients}</p>
 						</Tab>
 
 						<Tab eventKey="video-step" title="Video Step">
-							{dataSave?.video_link
-								? dataSave?.video_link.map((item, index) => (
-										<>
-											<div className={detailStyle.playContainer} onClick={() => router.push(`/recipes/video/${props?.id}?link=${item}`)}>
-												<div className="row">
-													<div className="col-4">
-														<div className={detailStyle.buttonPlay}>
-															<FiPlay size={30} color="#ffffff" />
-														</div>
-													</div>
-													<div className="col-8 d-flex align-items-center">
-														<h4>Step {index + 1}</h4>
-														{/* <p>Boil eggs for 3 minutes</p> */}
-													</div>
+							{dataSave?.video_link.length ? (
+								dataSave?.video_link.map((item, index) => (
+									<div key={index} className={detailStyle.playContainer} onClick={() => router.push(`/recipes/video/${props?.id}?link=${item}`)}>
+										<div className="row">
+											<div className="col-4">
+												<div className={detailStyle.buttonPlay}>
+													<FiPlay size={30} color="#ffffff" />
 												</div>
 											</div>
-										</>
-								  ))
-								: null}
-						</Tab>
-						<Tab eventKey="comment" title="Comment">
-							{profile ? (
-								<>
-									{profile.user_id === user_id ? null : (
-										<>
-											{/* Comment */}
-											<div className="mt-5">
-												<form>
-													<textarea className="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comments" value={comment} onChange={(e) => setComment(e.target.value)} />
-													<div className="d-grid gap-2 mt-3">
-														<button className="btn btn-warning text-white" type="submit" onClick={handleComment} disabled={isLoading}>
-															Post Comment
-														</button>
-													</div>
-												</form>
+											<div className="col-8 d-flex align-items-center">
+												<h4>Step {index + 1}</h4>
+												{/* <p>Boil eggs for 3 minutes</p> */}
 											</div>
-										</>
-									)}
+										</div>
+									</div>
+								))
+							) : (
+								<h3 className="d-flex justify-content-center">Belum ada Video</h3>
+							)}
+						</Tab>
+						{profile ? (
+							<Tab eventKey="comment" title="Comment">
+								{profile.user_id === user_id ? null : (
+									<>
+										{/* Comment */}
+										<div className="mt-5">
+											<form>
+												<textarea className="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comments" value={comment} onChange={(e) => setComment(e.target.value)} />
+												<div className="d-grid gap-2 mt-3">
+													<button className="btn btn-warning text-white" type="submit" onClick={handleComment} disabled={isLoading}>
+														Post Comment
+													</button>
+												</div>
+											</form>
+										</div>
+									</>
+								)}
 
-									{/* Comment section */}
-									<div className="mt-3">
-										<span>Comment:</span>
-										{commentData ? (
-											commentData.map((item) => (
-												<>
-													<div className={detailStyle.commentContainer}>
-														<div className="row">
-															<div className="col-2">
-																<Image src={item?.avatar ?? "/images/user.jpg"} alt="test" className={detailStyle.avatar} width="50px" height="50px" />
-															</div>
-															<div className="col-10">
-																<h6>{item?.author}</h6>
-																<span>{item?.comment}</span>
-															</div>
+								{/* Comment section */}
+								<div className="mt-3">
+									<span>Comment:</span>
+									{commentData ? (
+										commentData.map((item) => (
+											<>
+												<div className={detailStyle.commentContainer}>
+													<div className="row">
+														<div className="col-2">
+															<Image src={item?.avatar ?? "/images/user.jpg"} alt="test" className={detailStyle.avatar} width="50px" height="50px" />
+														</div>
+														<div className="col-10">
+															<h6>{item?.author}</h6>
+															<span>{item?.comment}</span>
 														</div>
 													</div>
-												</>
-											))
-										) : (
-											<h4 className="text-center mt-3">Tidak ada komentar</h4>
-										)}
-									</div>
-								</>
-							) : null}
-						</Tab>
+												</div>
+											</>
+										))
+									) : (
+										<h4 className="text-center mt-3">Tidak ada komentar</h4>
+									)}
+								</div>
+							</Tab>
+						) : null}
 					</Tabs>
 				</div>
 			</div>
@@ -234,7 +242,7 @@ export async function getStaticPaths() {
 
 	return {
 		paths: request?.result.map((item) => ({ params: { id: item?.recipe_id?.toString() } })),
-		fallback: false,
+		fallback: "blocking",
 	};
 }
 

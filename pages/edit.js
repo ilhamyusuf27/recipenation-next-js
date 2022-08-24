@@ -21,9 +21,9 @@ function Edit() {
 					<a>Change Profile</a>
 				</div>
 
-				<div className={editStyle.menuContainer}>
+				{/* <div className={editStyle.menuContainer}>
 					<a>Change Password</a>
-				</div>
+				</div> */}
 			</div>
 		</Responsive>
 	);

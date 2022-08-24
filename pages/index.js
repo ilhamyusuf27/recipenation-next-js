@@ -82,7 +82,7 @@ function Home(props) {
 						</h3>
 					</div>
 					<Slider {...settings}>
-						{props?.trending?.result.map((item) => (
+						{props?.trending?.result.slice(0, 5).map((item) => (
 							<>
 								<div className={`${homeStyle.cardNewRecipe} cardNewRecipe`} onClick={() => router.push(`/recipes/${item.recipe_id}`)}>
 									<Image
@@ -115,7 +115,7 @@ function Home(props) {
 							!item ? (
 								<Skeleton variant="rounded" width={418} height={100} className="mt-1 ms-1 mb-3" />
 							) : (
-								<>
+								<div>
 									<Link href={`/recipes/${item.recipe_id}`} passHref>
 										<div className={homeStyle.contentPopularRecipes}>
 											<div className="row w-100 h-100">
@@ -152,7 +152,7 @@ function Home(props) {
 											</div>
 										</div>
 									</Link>
-								</>
+								</div>
 							)
 						)}
 					</div>
