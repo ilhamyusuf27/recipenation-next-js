@@ -151,7 +151,7 @@ function Popular() {
 							</div>
 							<div className="col-5">
 								<div className={popularStyle.contentText}>
-									<h5>{item.title}</h5>
+									<h5 style={{ width: "13ch", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>{item.title}</h5>
 									<div className="d-flex align-items-center">
 										<FiUser />
 										<p className="ms-1 mb-0">{item?.author}</p>
