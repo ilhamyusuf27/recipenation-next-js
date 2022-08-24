@@ -58,21 +58,49 @@
         display: flex;
         justify-content: space-between;
         padding: 0 1.5rem;
+
+        a{
+            text-decoration: none;
+            color: black;
+            margin: 0;
+            padding: 0;
+        }
     }
 
     .cardNewRecipe{
         width: 100%;
         margin-right: 0 !important;
         height: 180px;
-        display: flex !important;
-        padding: .75rem;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
 
-        
-        h5{
-            font-size: 1rem;
-            text-shadow: 0px 2px 8px rgba(0,0,0,0.57);
+        .cardImage{
+            object-fit: cover;
+            object-position: center;
         }
+
+        .titleCard{
+            position: absolute;
+            z-index: 1;
+            bottom: 1rem;
+            left: 1rem;
+            h5{
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .cardNewRecipe::after{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background: #bdc3c7;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to top,#0b1015cb, #bdc3c700);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to top, #0b1015cb, #bdc3c700); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     }
 
     .popularRecipes{

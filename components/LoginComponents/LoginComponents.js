@@ -83,9 +83,9 @@ function LoginComponents() {
 							<input type="password" className="form-control form-control-lg" placeholder="Password" id="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
 						</div>
 					</div>
-					<div className={loginStyle.linkForgot}>
+					{/* <div className={loginStyle.linkForgot}>
 						<a>Forgot Password?</a>
-					</div>
+					</div> */}
 
 					{/* Button Login */}
 					<div className="d-grid gap-2">

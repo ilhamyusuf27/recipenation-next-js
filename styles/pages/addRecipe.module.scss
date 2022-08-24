@@ -2,8 +2,9 @@
 
 .container{
     padding-top: 3rem;
+    padding-bottom: 12rem;
     background-color: $bg-secondary-color;
-    height: 100vh;
+    height: 100%;
     width: 100%;
 
     h3{
@@ -19,10 +20,11 @@
     
     .wrapper{
         position: relative;
+        width: 100%;
 
         label{
             margin-top: 1.5rem;
-            width: 96%;
+            width: 100%;
             padding-left: 50px;
             padding-top: .5rem;
             padding-bottom: .5rem;
@@ -58,7 +60,6 @@
     
         input{
             padding-left: 50px;
-            width: 96%;
             background: $bg-color;
             margin-top: 1.5rem;
             border: none;
@@ -66,7 +67,6 @@
         }
         textarea{
             padding-left: 25px;
-            width: 96%;
             background: $bg-color;
             margin-top: 1.5rem;
             border: none;
@@ -81,6 +81,36 @@
         textarea:focus{
             box-shadow: 0 0 0 0.25rem rgba($color: $primary-color, $alpha: 0.4);
             padding-left: 25px;
+            border: none;
+        }
+    }
+
+    .input{
+        position: relative;
+        width: 100%;
+   
+        .iconUser{
+            position: absolute;
+            top:30%;
+            left:20px;
+        }
+
+        .iconUser2{
+            position: absolute;
+            top:50%;
+            left:20px;
+        }
+    
+        input{
+            padding-left: 50px;
+            background: $bg-color;
+            border: none;
+            border-radius: 15px;
+        }
+    
+        input:focus{
+            box-shadow: 0 0 0 0.25rem rgba($color: $primary-color, $alpha: 0.4);
+            padding-left: 50px;
             border: none;
         }
     }
@@ -108,5 +138,8 @@
             margin: 0;
         }
 
+    }
+    .form{
+        width: 344px;
     }
 }

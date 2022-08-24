@@ -5,8 +5,13 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import MainLayout from "../layout/MainLayout";
 import addRecipeStyle from "../styles/pages/addRecipe.module.scss";
+import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { FiBookOpen, FiVideo, FiImage } from "react-icons/fi";
+import { IoIosAdd } from "react-icons/io";
+
 import Swal from "sweetalert2";
 
 function Input() {
@@ -17,7 +22,7 @@ function Input() {
 	const [recipeImage, setRecipeImage] = React.useState("");
 	const [nameImage, setNameImage] = React.useState("");
 	const [video, setVideo] = React.useState("");
-	const [linkVideo, setLinkVideo] = React.useState([]);
+	const [linkVideo, setLinkVideo] = React.useState([""]);
 	const [isLoading, setIsLoading] = React.useState(false);
 
 	React.useEffect(() => {
@@ -25,17 +30,22 @@ function Input() {
 			router.push("/login");
 		}
 	});
+	const handleChange = (index, e) => {
+		let targetLinkVideo = [...linkVideo];
+		targetLinkVideo[index] = e.target.value;
+		setLinkVideo(targetLinkVideo);
+	};
 
 	const handleAdd = (e) => {
 		e.preventDefault();
-		linkVideo.push(video);
-		setVideo("");
+		setLinkVideo([...linkVideo, ""]);
 	};
 
-	// const handleDelete = (index) => {
-	// 	console.log(index);
-	// 	linkVideo.splice(index, 1);
-	// };
+	const handleRemove = (i) => {
+		let targetLinkVideo = [...linkVideo];
+		targetLinkVideo.splice(i, 1);
+		setLinkVideo(targetLinkVideo);
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -50,7 +60,7 @@ function Input() {
 		formData.append("video_link", linkConvert);
 
 		axios
-			.post("http://localhost:8000/recipes/add", formData, {
+			.post(`https://recipenation-app.herokuapp.com/recipes/add`, formData, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 					"content-type": "multipart/form-data",
@@ -63,15 +73,20 @@ function Input() {
 					title: "Berhasil Ditambah",
 				}).then(() => router.push("/"));
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				setIsLoading(false);
+				Swal.fire({
+					icon: "error",
+					title: err.response.data,
+				});
+			});
 	};
-
 	return (
 		<MainLayout>
 			<div className={addRecipeStyle.container}>
 				<h3 className="text-center">Add Your Recipe</h3>
 				<div className={`${addRecipeStyle.input} mb-4`}>
-					<form onSubmit={handleSubmit}>
+					<form onSubmit={handleSubmit} className={addRecipeStyle.form}>
 						<div className={addRecipeStyle.wrapper}>
 							<FiBookOpen className={addRecipeStyle.iconUser} size={20} color="#C4C4C4" />
 							<input type="text" className="form-control form-control-lg" placeholder="Title" id="title" required value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -94,35 +109,36 @@ function Input() {
 						<div className={addRecipeStyle.wrapper}>
 							<textarea rows="3" type="text" className="form-control form-control-lg" placeholder="Description" id="desc" required value={desc} onChange={(e) => setDesc(e.target.value)} />
 						</div>
-						<div className={addRecipeStyle.wrapper}>
-							<FiVideo className={addRecipeStyle.iconUser} size={20} color="#C4C4C4" />
-							<input type="text" className="form-control form-control-lg" placeholder="Add Video" id="video" value={video} onChange={(e) => setVideo(e.target.value)} />
-							<button onClick={handleAdd} className={addRecipeStyle.add}>
-								Tambah
-							</button>
-						</div>
-
-						{linkVideo.length > 0 ? (
-							<div className={addRecipeStyle.wrapper}>
-								<div className={addRecipeStyle.linkContainer}>
-									{linkVideo.map((item, index) => (
-										<>
-											<div
-												className={addRecipeStyle.videoLink}
-												// onClick={(e) => {
-												// 	e.preventDefault;
-												// 	handleDelete(index);
-												// }}
-											>
-												<p>{item}</p>
-											</div>
-										</>
-									))}
+						{linkVideo.map((item, index) =>
+							index > 0 ? (
+								<div className="d-flex align-items-center mt-4">
+									<div className={addRecipeStyle.input}>
+										<FiVideo className={addRecipeStyle.iconUser} size={20} color="#C4C4C4" />
+										<input type="text" className="form-control form-control-lg" placeholder="Add Video" id="video" value={linkVideo[index]} onChange={(e) => handleChange(index, e)} />
+									</div>
+									<Stack>
+										<IconButton aria-label="delete" size="large" onClick={() => handleRemove(index)}>
+											<DeleteIcon fontSize="inherit" />
+										</IconButton>
+									</Stack>
 								</div>
-							</div>
-						) : null}
-						<div className="d-flex justify-content-center mt-4">
-							<button type="submit" className="btn btn-warning btn-lg text-light" disabled={isLoading}>
+							) : (
+								<div className="d-flex align-items-center mt-4">
+									<div className={addRecipeStyle.input}>
+										<FiVideo className={addRecipeStyle.iconUser} size={20} color="#C4C4C4" />
+										<input type="text" className="form-control form-control-lg" placeholder="Add Video" id="video" value={linkVideo[index]} onChange={(e) => handleChange(index, e)} />
+									</div>
+								</div>
+							)
+						)}
+
+						<button type="button" className="btn btn-outline-warning mt-3" onClick={handleAdd}>
+							<IoIosAdd />
+							Tambah Video
+						</button>
+
+						<div className="d-flex justify-content-center mt-5 mb-5">
+							<button type="submit" className="btn btn-warning btn-lg text-light mb-5	" disabled={isLoading}>
 								{isLoading ? "Loading..." : "Submit"}
 							</button>
 						</div>

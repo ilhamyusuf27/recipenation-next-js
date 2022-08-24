@@ -29,11 +29,11 @@ function MainLayout(props) {
 									<MdOutlineAddBox size={30} color={router.pathname === "/input" ? "#EFC81A" : "#6E80B0"} />
 								</a>
 							</li>
-							<li className="nav-item">
+							{/* <li className="nav-item">
 								<a>
 									<FiMessageCircle size={30} color={router.pathname === "/chat" ? "#EFC81A" : "#6E80B0"} />
 								</a>
-							</li>
+							</li> */}
 							<li className="nav-item" onClick={() => router.push("/profile")}>
 								<a>
 									<FiUser size={30} color={router.pathname === "/profile" ? "#EFC81A" : "#6E80B0"} />

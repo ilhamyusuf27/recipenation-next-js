@@ -39,7 +39,7 @@ function detail() {
 				{/* Content */}
 				<div className={detailStyle.content}>
 					<Tabs defaultActiveKey="ingredients" id="uncontrolled-tab-example" className="mb-3" variant="pills">
-						<Tab eventKey="ingredients" title="Ingredients">
+						<Tab eventKey="ingredients" title="Ingredients" style={{ color: "black" }}>
 							- 2 slices whole-grain bread (bakery-fresh recommended) - 1 tablespoon hummus - 2 slices tomato - 1/2 small cucumber, thinly sliced lengthwise - 1 slice low-fat cheese
 						</Tab>
 
