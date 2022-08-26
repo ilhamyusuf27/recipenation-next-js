@@ -62,25 +62,153 @@
     .title{
         position: absolute;
         z-index: 2;
-        top: 75%;
+        top: 70%;
         left: 10%;
         color: white;
     }
 
+    
+    @media only screen and (min-width: 1024px) {
+        .title{
+            top:65%;
+        }
+        .content{
+            top: 320px !important;
+        }
+    }
+    @media  screen and (min-width: 1280px){
+        .title{
+            top:65%;
+        }
+        .content{
+            top: 350px !important;
+        }
+    }
+    @media screen and (min-width: 1280px) and (min-height: 720px){
+        .title{
+            top:65%;
+        }
+        .content{
+            top: 325px !important;
+        }
+    }
+    @media  screen and (min-width: 1280px) and (min-height: 800px){
+        .title{
+            top:65%;
+        }
+        .content{
+            top: 350px !important;
+        }
+    }
+    @media  screen and (min-width: 1280px) and (min-height: 1024px){
+        .title{
+            top:70%;
+        }
+        .content{
+            top: 460px !important;
+        }
+    }
     @media only screen and (min-width: 1440px) {
         .title{
             top:60%;
         }
+        .content{
+            top: 412px !important;
+        }
     }
-    @media only screen and (min-width: 1080px) {
+    @media only screen and (min-width: 1440px) and (min-height:1009) {
+        .title{
+            top:60%;
+        }
+        .content{
+            top: 450px !important;
+        }
+    }
+    @media screen and (min-width: 1440px) and (min-height: 900px){
+        .title{
+            top:70%;
+        }
+        .content{
+            top: 412px !important;
+        }
+    }
+    @media screen and (min-width: 1536px) and (min-height: 793.60px){
+        .title{
+            top:70%;
+        }
+        .content{
+            top: 370px !important;
+        }
+    }
+    @media only screen and (min-width: 1600px) {
+        .title{
+            top:60%;
+        }
+        .content{
+            top: 526px !important;
+        }
+    }
+    @media only screen and (min-width: 1600px) and (min-height:900px) {
+        .title{
+            top:75%;
+        }
+        .content{
+            top: 430px !important;
+        }
+    }
+    @media only screen and (min-width: 1920px) and (min-height: 969px) {
+        .title{
+            top:70%;
+        }
+        .content{
+            top: 450px !important;
+        }
+    }
+    @media only screen and (min-width: 1920px) and (min-height: 1080px) {
+        .title{
+            top:80%;
+        }
+        .content{
+            top: 526px !important;
+        }
+    }
+    @media only screen and (min-width: 2560px) {
+        .title{
+            top:60%;
+        }
+        .content{
+            top: 646px !important;
+        }
+    }
+
+    @media screen and (min-width: 375px) and (min-height:667px) {
+        .title{
+            top:68%;
+        }
+        .content{
+            top: 310px !important;
+        }
+    }
+    @media screen and (min-width: 375px) and (min-height:812px) {
+        .title{
+            top:70%;
+        }
+        .content{
+            top: 380px !important;
+        }
+    }
+    @media screen and (min-width: 414px) and (min-height:896px) {
         .title{
             top:65%;
+        }
+        .content{
+            top: 400px !important;
         }
     }
 
     .content{
         position: absolute;
-        top: 425px;
+        top: 330px;
         width: 100%;
         height: 100%;
         background-color: $bg-color;
