@@ -8,7 +8,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { FiSearch, FiUser } from "react-icons/fi";
-import { BsFillStarFill } from "react-icons/bs";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { BiLike } from "react-icons/bi";
 
@@ -18,11 +17,52 @@ import MainLayout from "../layout/MainLayout";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Stack } from "react-bootstrap";
+// import { Stack } from "react-bootstrap";
+// import axios from "axios";
 
 function Home(props) {
 	const router = useRouter();
 	const [search, setSearch] = React.useState("");
+	// const [trending, setTrending] = React.useState([]);
+	// const [recipes, setRecipes] = React.useState([]);
+
+	// const getTrending = () => {
+	// 	axios
+	// 		.get(`${process.env.NEXT_URL}/api/recipe/newrecipes`)
+	// 		.then((res) => {
+	// 			setTrending(res?.data?.result);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// };
+
+	// const getRecipes = () => {
+	// 	axios
+	// 		.get(`${process.env.NEXT_URL}/api/recipe/popular`)
+	// 		.then((res) => {
+	// 			setRecipes(res?.data?.result);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// };
+
+	// const getUser = () => {
+	// 	axios
+	// 		.get(`${process.env.NEXT_URL}/api/recipe/popular`)
+	// 		.then((res) => {
+	// 			setRecipes(res?.data?.result);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// };
+
+	// React.useEffect(() => {
+	// 	getTrending();
+	// 	getRecipes();
+	// }, []);
 
 	const handleSearch = (e) => {
 		e.preventDefault();
@@ -165,9 +205,8 @@ function Home(props) {
 export async function getServerSideProps() {
 	const trending = await fetch(`${process.env.NEXT_URL}/api/recipe/newrecipes`).then((res) => res.json());
 	const recipes = await fetch(`${process.env.NEXT_URL}/api/recipe/popular`).then((res) => res.json());
-	const users = await fetch(`${process.env.NEXT_URL}/api/user`).then((res) => res.json());
 
-	return { props: { trending, allRecipes: recipes, user: users?.total_data } };
+	return { props: { trending, allRecipes: recipes } };
 }
 
 export default Home;
