@@ -118,7 +118,7 @@ function Input() {
 	return (
 		<MainLayout>
 			<div className={addRecipeStyle.container}>
-				<h3 className="text-center">Add Your Recipe</h3>
+				<h3 className="text-center">Edit Recipe</h3>
 				<div className={`${addRecipeStyle.input} mb-4`}>
 					<form onSubmit={handleSubmit} className={addRecipeStyle.form}>
 						<div className={addRecipeStyle.wrapper}>
