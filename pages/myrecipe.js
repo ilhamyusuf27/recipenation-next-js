@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import axios from "axios";
@@ -7,19 +8,20 @@ import Responsive from "../layout/Responsive";
 import Link from "next/link";
 
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
-import { FiUser } from "react-icons/fi";
+import { FiUser, FiTrash2, FiEdit3 } from "react-icons/fi";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { BiLike } from "react-icons/bi";
 
 function Myrecipe() {
 	const router = useRouter();
-	const { profile } = useSelector((state) => state?.auth);
+	const { profile, token } = useSelector((state) => state?.auth);
 	const [data, setData] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(false);
 
-	React.useEffect(() => {
+	const getData = () => {
 		setIsLoading(true);
 		axios
 			.post(`${process.env.NEXT_URL}/api/recipe/user`, {
@@ -30,9 +32,37 @@ function Myrecipe() {
 				setFound(false);
 			})
 			.catch(() => setIsLoading(false));
-	}, [profile?.user_id]);
+	};
 
-	console.log(data);
+	React.useEffect(() => {
+		getData();
+	}, []);
+
+	const handleDelete = (data) => {
+		Swal.fire({
+			title: "Do you want to delete this recipe?",
+			showCancelButton: true,
+			confirmButtonText: "Delete",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setIsLoading(true);
+				axios
+					.delete(`${process.env.API_URL}/delete/recipe/${data?.recipe_id}`, {
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					})
+					.then(() => {
+						Swal.fire("Delete!", `Success delete ${data?.title}`, "success");
+						setIsLoading(false);
+						getData();
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			}
+		});
+	};
 
 	return (
 		<Responsive>
@@ -50,30 +80,42 @@ function Myrecipe() {
 					<>
 						{data?.map((item) => (
 							<div key={item?.recipe_id} className={`${saveStyle.recipe} mb-3`}>
-								<Link href={`/recipes/${item?.recipe_id}`}>
-									<div className="row">
+								<div className="row">
+									<Link href={`/recipes/${item?.recipe_id}`}>
 										<div className="col-3">
-											<div className={saveStyle.image} style={{ backgroundImage: `url(${item.recipe_images})` }} />
+											<div className={saveStyle.image} style={{ backgroundImage: `url(${item?.recipe_images})` }} />
 										</div>
-										<div className="col-9">
-											<div className={`${saveStyle.detail}`}>
-												<h4 className="m-0">{item.title}</h4>
-												<div className="d-flex align-items-center">
-													<FiUser />
-													<p className="ms-1 mb-0">{item?.author}</p>
+									</Link>
+									<div className="col-5">
+										<div className={`${saveStyle.detail}`}>
+											<Link href={`/recipes/${item?.recipe_id}`}>
+												<h5 className="m-0">{item.title}</h5>
+											</Link>
+											<div className="d-flex align-items-center">
+												<FiUser />
+												<p className="ms-1 mb-0">{item?.author}</p>
+											</div>
+											<div className="row">
+												<div className="col-lg-4 col-4 d-flex align-items-center">
+													<IoBookmarkOutline /> {" " + item?.save.length}
 												</div>
-												<div className="row">
-													<div className="col-lg-2 col-3 d-flex align-items-center">
-														<IoBookmarkOutline /> {" " + item?.save.length}
-													</div>
-													<div className="col-lg-2 col-3 d-flex align-items-center">
-														<BiLike /> {" " + item?.likes.length}
-													</div>
+												<div className="col-lg-4 col-4 d-flex align-items-center">
+													<BiLike /> {" " + item?.likes.length}
 												</div>
 											</div>
 										</div>
 									</div>
-								</Link>
+									<div className="col-4">
+										<div className="w-100 h-100 d-flex justify-content-around align-items-center">
+											<div className={saveStyle.buttonEdit} onClick={() => router.push(`/recipes/edit/${item?.recipe_id}`)}>
+												<FiEdit3 color="white" />
+											</div>
+											<div className={saveStyle.buttonDelete} onClick={() => handleDelete(item)}>
+												<FiTrash2 color="white" />
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						))}
 					</>

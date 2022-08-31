@@ -95,6 +95,7 @@ function Detail(props) {
 				setCommentData(result?.result);
 			})
 			.catch((err) => {
+				console.log(err);
 				setIsLoading(false);
 			});
 	};
@@ -162,7 +163,7 @@ function Detail(props) {
 						</Tab>
 
 						<Tab eventKey="video-step" title="Video Step">
-							{dataSave?.video_link.length ? (
+							{dataSave?.video_link?.length ? (
 								dataSave?.video_link.map((item, index) => (
 									<div key={index} className={detailStyle.playContainer} onClick={() => router.push(`/recipes/video/${props?.id}?link=${item}`)}>
 										<div className="row">

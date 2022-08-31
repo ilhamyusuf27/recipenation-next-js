@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -20,7 +21,6 @@ function Popular() {
 	const [save, setSave] = React.useState([]);
 	const [open, setOpen] = React.useState(false);
 	const [msg, setMessage] = React.useState("");
-	console.log(save);
 
 	React.useEffect(() => {
 		if (!token) {
@@ -30,7 +30,7 @@ function Popular() {
 		fetch(`${process.env.NEXT_URL}/api/recipe/allrecipe`)
 			.then((res) => res.json())
 			.then((result) => {
-				setSave(result.result);
+				setSave(result?.result);
 			});
 	}, []);
 
@@ -141,26 +141,29 @@ function Popular() {
 			<div className={popularStyle.contentContainer}>
 				{save.map((item) => (
 					// eslint-disable-next-line react/jsx-key
-					<div className="mb-3">
+					<div className="mb-3" key={item?.recipe_id}>
 						<div className="row">
 							<div className="col-3">
 								<div
 									className={popularStyle.imageContent}
-									style={{ backgroundImage: `url(${item.recipe_images ?? "https://www.dirtyapronrecipes.com/wp-content/uploads/2015/10/food-placeholder.png"})` }}
+									style={{ backgroundImage: `url(${item.recipe_images ?? "https://www.dirtyapronrecipes.com/wp-content/uploads/2015/10/food-placeholder.png"})`, cursor: "pointer" }}
+									onClick={() => router.push(`/recipes/${item?.recipe_id}`)}
 								></div>
 							</div>
 							<div className="col-5">
 								<div className={popularStyle.contentText}>
-									<h5 style={{ width: "13ch", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>{item.title}</h5>
+									<h5 style={{ width: "13ch", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", cursor: "pointer" }} onClick={() => router.push(`/recipes/${item?.recipe_id}`)}>
+										{item.title}
+									</h5>
 									<div className="d-flex align-items-center">
 										<FiUser />
 										<p className="ms-1 mb-0">{item?.author}</p>
 									</div>
 									<div className="row">
-										<div className="col-lg-3 col-3 d-flex align-items-center">
+										<div className="col-lg-4 col-4 col-sm-6 d-flex align-items-center">
 											<IoBookmarkOutline /> {" " + item?.save.length}
 										</div>
-										<div className="col-lg-3 col-3 d-flex align-items-center">
+										<div className="col-lg-4 col-4 col-sm-6 d-flex align-items-center">
 											<BiLike /> {" " + item?.likes.length}
 										</div>
 									</div>

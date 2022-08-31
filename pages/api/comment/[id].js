@@ -7,7 +7,7 @@ export default function handler(req, res) {
 
 	axios
 		.post(
-			`${process.env.API_URL}/recipe/${id}/comment`,
+			`${process.env.API_URL}/recipe/comments/${id}`,
 			{
 				comment,
 				user_id,
@@ -19,7 +19,11 @@ export default function handler(req, res) {
 			}
 		)
 		.then((response) => {
+			console.log(response);
 			res.status(200).json(response?.data);
 		})
-		.catch((err) => res.status(400).json(err.response.data));
+		.catch((err) => {
+			console.log(err);
+			res.status(400).json(err.response.data);
+		});
 }
