@@ -122,21 +122,19 @@ function Home(props) {
 						</h3>
 					</div>
 					<Slider {...settings}>
-						{props?.trending?.result.slice(0, 5).map((item) => (
-							<>
-								<div className={`${homeStyle.cardNewRecipe} cardNewRecipe`} onClick={() => router.push(`/recipes/${item.recipe_id}`)}>
-									<Image
-										src={item?.recipe_images ?? "/images/food-placeholder.png"}
-										layout="fill"
-										alt="new-recipe"
-										sizes="(min-width: 75em) 33vw, (min-width: 48em) 50vw, 100vw"
-										className={homeStyle.cardImage}
-									/>
-									<div className={homeStyle.titleCard}>
-										<h5>{item?.title}</h5>
-									</div>
+						{props?.trending?.result.slice(0, 5).map((item, index) => (
+							<div key={`T${(index + 1).toString()}`} item className={`${homeStyle.cardNewRecipe} cardNewRecipe`} onClick={() => router.push(`/recipes/${item.recipe_id}`)}>
+								<Image
+									src={item?.recipe_images ?? "/images/food-placeholder.png"}
+									layout="fill"
+									alt="new-recipe"
+									sizes="(min-width: 75em) 33vw, (min-width: 48em) 50vw, 100vw"
+									className={homeStyle.cardImage}
+								/>
+								<div className={homeStyle.titleCard}>
+									<h5>{item?.title}</h5>
 								</div>
-							</>
+							</div>
 						))}
 					</Slider>
 				</div>
@@ -151,11 +149,11 @@ function Home(props) {
 						</Link>
 					</div>
 					<div className={homeStyle.popularRecipes}>
-						{props?.allRecipes?.result.map((item) =>
+						{props?.allRecipes?.result.map((item, index) =>
 							!item ? (
-								<Skeleton variant="rounded" width={418} height={100} className="mt-1 ms-1 mb-3" />
+								<Skeleton variant="rounded" width={418} height={100} className="mt-1 ms-1 mb-3" key={`S${(index + 1).toString()}`} item="true" />
 							) : (
-								<div>
+								<div key={`D${(index + 1).toString()}`}>
 									<Link href={`/recipes/${item.recipe_id}`} passHref>
 										<div className={homeStyle.contentPopularRecipes}>
 											<div className="row w-100 h-100">

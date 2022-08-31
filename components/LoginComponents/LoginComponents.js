@@ -13,22 +13,20 @@ import axios from "axios";
 
 import { useDispatch } from "react-redux";
 import * as Type from "../../redux/auth/type";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 function LoginComponents() {
 	const dispatch = useDispatch();
 	const router = useRouter();
 
-	const [email, setEmail] = React.useState("");
-	const [password, setPassword] = React.useState("");
 	const [isLoading, setIsLoading] = React.useState(false);
 
-	const handleLogin = (e) => {
-		e.preventDefault();
-
+	const handleLogin = (values) => {
 		setIsLoading(true);
 
 		axios
-			.post("/api/auth/login", { email, password })
+			.post("/api/auth/login", { email: values.email, password: values.password })
 			.then((response) => {
 				dispatch({
 					type: Type.SET_AUTH,
@@ -47,10 +45,24 @@ function LoginComponents() {
 				setIsLoading(false);
 				Swal.fire({
 					icon: "error",
-					title: err?.response?.data,
+					title: err?.response?.data?.message,
 				});
 			});
 	};
+
+	const loginSchema = yup.object().shape({
+		email: yup.string().email("Please enter a valid email").required("Required"),
+		password: yup.string().min(6).max(20).required("Required"),
+	});
+
+	const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
+		initialValues: {
+			email: "",
+			password: "",
+		},
+		validationSchema: loginSchema,
+		onSubmit: handleLogin,
+	});
 
 	return (
 		<div className={loginStyle.login}>
@@ -61,7 +73,12 @@ function LoginComponents() {
 			</div>
 
 			<div className={loginStyle.formStyle}>
-				<form onSubmit={handleLogin}>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						handleSubmit(e);
+					}}
+				>
 					{/* Input email */}
 					<div className="mb-3">
 						<label htmlFor="email" className="form-label">
@@ -69,8 +86,9 @@ function LoginComponents() {
 						</label>
 						<div className={loginStyle.wrapper}>
 							<FiUser className={loginStyle.iconUser} size={20} color="#18172B" />
-							<input type="email" className="form-control form-control-lg" placeholder="examplexxx@gmail.com" id="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+							<input type="email" className="form-control form-control-lg" placeholder="examplexxx@gmail.com" id="email" required value={values.email} onChange={handleChange} onBlur={handleBlur} />
 						</div>
+						{errors.email && touched.email ? <p style={{ color: "red" }}>{errors.email}</p> : null}
 					</div>
 
 					{/* Input password */}
@@ -80,7 +98,8 @@ function LoginComponents() {
 						</label>
 						<div className={loginStyle.wrapper}>
 							<CgLock className={loginStyle.iconUser} size={20} color="#18172B" />
-							<input type="password" className="form-control form-control-lg" placeholder="Password" id="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+							<input type="password" className="form-control form-control-lg" placeholder="Password" id="password" required value={values.password} onChange={handleChange} onBlur={handleBlur} />
+							{errors.password && touched.password ? <p style={{ color: "red" }}>{errors.name}</p> : null}
 						</div>
 					</div>
 					{/* <div className={loginStyle.linkForgot}>

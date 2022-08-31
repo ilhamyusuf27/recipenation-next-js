@@ -16,16 +16,16 @@ import Swal from "sweetalert2";
 
 import { useDispatch, useSelector } from "react-redux";
 import * as Type from "../redux/register/type";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 function Register() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const data = useSelector((state) => state?.register);
-	const { name, email, phone_number, password, rePassword } = data;
 	const [isLoading, setIsLoading] = React.useState(false);
 
-	const handleRegister = (e) => {
-		e.preventDefault();
+	const handleRegister = (values) => {
 		setIsLoading(true);
 
 		axios
@@ -40,14 +40,36 @@ function Register() {
 				}).then(() => router.replace("/login"));
 			})
 			.catch((err) => {
-				console.log(err);
 				setIsLoading(false);
 				Swal.fire({
 					icon: "error",
-					title: err?.response?.data,
+					title: err?.response?.data?.message,
 				});
 			});
 	};
+
+	const registerSchema = yup.object().shape({
+		name: yup.string().required("Required"),
+		phone: yup.string().max(14, "Phone number cannot be more than 14 digits").required("Required"),
+		email: yup.string().email("Please enter a valid email").required("Required"),
+		password: yup.string().min(6).max(20).required("Required"),
+		confirmPass: yup
+			.string()
+			.oneOf([yup.ref("password"), null], "Password must match")
+			.required("Required"),
+	});
+
+	const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
+		initialValues: {
+			name: "",
+			email: "",
+			phone: "",
+			password: "",
+			confirmPass: "",
+		},
+		validationSchema: registerSchema,
+		onSubmit: handleRegister,
+	});
 
 	return (
 		<>
@@ -66,7 +88,13 @@ function Register() {
 							<p>Create new account to access all feautures</p>
 						</div>
 						<div className={RegisterStyle.formStyle}>
-							<form onSubmit={handleRegister}>
+							<form
+								onSubmit={(e) => {
+									e.preventDefault();
+									handleRegister(e);
+								}}
+								autoComplete="off"
+							>
 								{/* Input name */}
 								<div className="mb-4">
 									<div className={RegisterStyle.wrapper}>
@@ -77,17 +105,20 @@ function Register() {
 											placeholder="Name"
 											id="name"
 											required
-											value={name}
-											onChange={(e) =>
+											value={values.name}
+											onChange={(e) => {
 												dispatch({
 													type: Type.SET_NAME,
 													payload: {
 														name: e.target.value,
 													},
-												})
-											}
+												});
+												handleChange(e);
+											}}
+											onBlur={handleBlur}
 										/>
 									</div>
+									{errors.name && touched.name ? <p style={{ color: "red" }}>{errors.name}</p> : null}
 								</div>
 
 								{/* Input email */}
@@ -100,17 +131,20 @@ function Register() {
 											placeholder="E-Mail"
 											id="email"
 											required
-											value={email}
-											onChange={(e) =>
+											value={values.email}
+											onChange={(e) => {
 												dispatch({
 													type: Type.SET_EMAIL,
 													payload: {
 														email: e.target.value,
 													},
-												})
-											}
+												});
+												handleChange(e);
+											}}
+											onBlur={handleBlur}
 										/>
 									</div>
+									{errors.email && touched.email ? <p style={{ color: "red" }}>{errors.email}</p> : null}
 								</div>
 
 								{/* Input Phone Number */}
@@ -123,17 +157,20 @@ function Register() {
 											placeholder="Phone Number"
 											id="phone"
 											required
-											value={phone_number}
-											onChange={(e) =>
+											value={values.phone}
+											onChange={(e) => {
 												dispatch({
 													type: Type.SET_PHONE,
 													payload: {
 														phone_number: e.target.value,
 													},
-												})
-											}
+												});
+												handleChange(e);
+											}}
+											onBlur={handleBlur}
 										/>
 									</div>
+									{errors.phone && touched.phone ? <p style={{ color: "red" }}>{errors.phone}</p> : null}
 								</div>
 
 								{/* Input password */}
@@ -146,17 +183,20 @@ function Register() {
 											placeholder="Create New Password"
 											id="password"
 											required
-											value={password}
-											onChange={(e) =>
+											value={values.password}
+											onChange={(e) => {
 												dispatch({
 													type: Type.SET_PASS,
 													payload: {
 														password: e.target.value,
 													},
-												})
-											}
+												});
+												handleChange(e);
+											}}
+											onBlur={handleBlur}
 										/>
 									</div>
+									{errors.password && touched.password ? <p style={{ color: "red" }}>{errors.password}</p> : null}
 								</div>
 
 								<div className="mb-4">
@@ -166,19 +206,22 @@ function Register() {
 											type="password"
 											className="form-control form-control-lg"
 											placeholder="Confirm Password"
-											id="conf-password"
+											id="confirmPass"
 											required
-											value={rePassword}
-											onChange={(e) =>
+											value={values.confirmPass}
+											onChange={(e) => {
 												dispatch({
 													type: Type.SET_CONFPASS,
 													payload: {
 														rePassword: e.target.value,
 													},
-												})
-											}
+												});
+												handleChange(e);
+											}}
+											onBlur={handleBlur}
 										/>
 									</div>
+									{errors.confirmPass && touched.confirmPass ? <p style={{ color: "red" }}>{errors.confirmPass}</p> : null}
 								</div>
 
 								{/* Button Login */}

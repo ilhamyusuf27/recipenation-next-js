@@ -15,6 +15,7 @@
     "@mui/material": "^5.10.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "formik": "^2.2.9",
     "next": "12.2.3",
     "react": "18.2.0",
     "react-bootstrap": "^2.4.0",
@@ -27,7 +28,8 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.54.0",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^11.4.26"
+    "sweetalert2": "^11.4.26",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "eslint": "8.20.0",
